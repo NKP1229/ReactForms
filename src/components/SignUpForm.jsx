@@ -3,12 +3,36 @@ export default function SignUp() {
   const [user, setUser] = useState("");
   const [pass,setPass] = useState("");
   const [error,setError] = useState(null);
+  
+  async function handleSubmit(event) {
+    event.preventDefault();
+    // console.log("Hello");
+    try{
+
+    }
+    catch(error){
+        console.error(error.message);
+        setError(error.message);
+    }
+  }
+  
   return (
     <>
       <h2>Sign Up</h2>
-      <form>
-        <label>Username: <input/></label>
-        <label>Password: <input/></label>
+      {error && <p>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <div>
+            <label>
+                Username: 
+                <input value={user} onChange={(e) => setUser(e.target.value)}/>
+            </label>
+        </div>
+        <div>
+            <label>
+                Password: 
+                <input type="password" value={pass} onChange={(e) => setPass(e.target.value)}/>
+            </label>
+        </div>
         <button>Submit</button>
       </form>
     </>
