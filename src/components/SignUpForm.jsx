@@ -3,20 +3,28 @@ export default function SignUp({token,setToken}) {
   const [user, setUser] = useState("");
   const [pass,setPass] = useState("");
   const [error,setError] = useState(null);
-  
+  const [resultMsg, setResultMsg] = useState("");
   async function handleSubmit(event) {
     event.preventDefault();
     // console.log("Hello");
     try{
-        const response = await fetch("https://fsa-jwt-practice.herokuapp.com/signup",
-            {
-                method: "POST",
-                body: JSON.stringify(),
+        const response = await fetch('https://fsa-jwt-practice.herokuapp.com/signup', 
+            { 
+              method: "POST", 
+              headers: { 
+                "Content-Type": "application/json" 
+              }, 
+              body: JSON.stringify({ 
+                username: {user}, 
+                password: {pass},
+              }) 
             }
-        );
+        )
         const result = await response.json();
         setToken(result.token);
         console.log(result);
+        setResultMsg(result.message);
+
     }
     catch(error){
         console.error(error.message);
@@ -43,6 +51,9 @@ export default function SignUp({token,setToken}) {
         </div>
         <button>Submit</button>
       </form>
+      <div>
+        {resultMsg && <p>{resultMsg}</p>}
+      </div>
     </>
   )
 }

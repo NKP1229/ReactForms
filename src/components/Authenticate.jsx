@@ -2,6 +2,7 @@ import {useState} from 'react'
 export default function Authenticate({token}) {
     const [successMsg, setSuccessMsg] = useState(null);
     const [error,setError] = useState(null);
+    const [data,setData] = useState(null);
     async function handleClick() {
         try{
             const response = await fetch(
@@ -16,6 +17,8 @@ export default function Authenticate({token}) {
             );
             const result = await response.json();
             setSuccessMsg(result.message);
+            console.log(result);
+            setData(result);
         }
         catch(error){
             setError(error.message);
@@ -23,6 +26,10 @@ export default function Authenticate({token}) {
     }
     return (
       <div>
+        <div>
+            {data && <h3>Username: {data.data.username.user}</h3>}
+
+        </div>
         <h2>Authenticate</h2>
         {successMsg && <p>{successMsg}</p>}
         {error && <p>{error}</p>}
