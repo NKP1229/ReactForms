@@ -6,7 +6,6 @@ export default function SignUp({token,setToken}) {
   const [resultMsg, setResultMsg] = useState("");
   async function handleSubmit(event) {
     event.preventDefault();
-    // console.log("Hello");
     {!user && setResultMsg(`Username Required!`)}
     {!pass && setResultMsg(`Password Required!`)}
     {if(user && pass && !error){
@@ -65,7 +64,7 @@ export default function SignUp({token,setToken}) {
     return "";
   }
   return (
-    <>
+    <div id="signUp">
       <h2>Sign Up</h2>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -78,7 +77,7 @@ export default function SignUp({token,setToken}) {
         <div>
             <label>
                 Password: 
-                <input type="password" value={pass} onChange={checkPassword}/>
+                <input type="password" value={pass} placeholder="aO2m$76Hq*lSy" onChange={checkPassword}/>
             </label>
         </div>
         <button>Submit</button>
@@ -86,6 +85,6 @@ export default function SignUp({token,setToken}) {
       <div>
         {resultMsg && <p>{resultMsg}</p>}
       </div>
-    </>
+    </div>
   )
 }

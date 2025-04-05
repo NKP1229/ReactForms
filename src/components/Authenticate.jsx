@@ -5,27 +5,32 @@ export default function Authenticate({token}) {
     const [data,setData] = useState(null);
     async function handleClick() {
         try{
-            const response = await fetch(
-                "https://fsa-jwt-practice.herokuapp.com/authenticate",
-                {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${token}`,
-                    }   
-                }
-            );
-            const result = await response.json();
-            setSuccessMsg(result.message);
-            console.log(result);
-            setData(result);
+            if(token){
+                const response = await fetch(
+                    "https://fsa-jwt-practice.herokuapp.com/authenticate",
+                    {
+                        method: "GET",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${token}`,
+                        }   
+                    }
+                );
+                const result = await response.json();
+                setSuccessMsg(result.message);
+                console.log(result);
+                setData(result);
+            }
+            else{
+                setSuccessMsg("Please enter username & password.");
+            }
         }
         catch(error){
             setError(error.message);
         }
     }
     return (
-      <div>
+      <div id="authenticate">
         <div>
             {data && <h3>Username: {data.data.username.user}</h3>}
 
